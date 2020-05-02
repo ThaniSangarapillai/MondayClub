@@ -58,7 +58,7 @@ def keyword_search(stock):
     market = data.info["market"]
 
     search_query = [sector + " stocks", industry + " stocks", symbol, market]
-
+    news_sentiment = []
     try:
         search = longname.split( )
         new_search = []
@@ -79,6 +79,8 @@ def keyword_search(stock):
         response = requests.get(url)
         print(response.json())
         response.raise_for_status()
+        news = response.json()
+        
     except Exception as e:
         raise e
         #print("Error!")
