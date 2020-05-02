@@ -9,17 +9,35 @@ import ast
 from bs4 import BeautifulSoup
 
 
-def look_up(stock):
+def look_up(stock,total_time = "5d",interval_time = "1d"):
+
     data = yf.Ticker(stock)
-    stock_data = {}
-    print(data.recommendations)
-    try:
-        for x in data.info:
-            print(x, ":", data.info[x])
-        hist = data.history(period="5d")
-        print(hist)
-    except Exception as e:
-        print(e)
+
+    original = data.info
+    #White list picks the values we want to KEEP from the original data.info
+    white_list = {"sector", "fullTimeEmployees", "longBusinessSummary", "city", "phone",
+                  "state", "country", "website", "address1", "industry",
+                  "currency", "marketCap", "sharesOutstanding", "bookValue", "logo_url"}
+
+    returnDict = {k:v for k,v in original.items() if k in white_list}
+
+    #Creates a dictionary that contains numerical information like open/close/volume for specific dates of the time
+    hist = data.history(period=total_time,interval = interval_time).to_dict()
+
+    #Combines both dictionaries into one
+    returnDict.update(hist)
+
+    return returnDict
+
+    # stock_data = {}
+    # print(data.recommendations)
+    # try:
+    #     for x in data.info:
+    #         print(x, ":", data.info[x])
+    #     hist = data.history(period="5d")
+    #     print(hist)
+    # except Exception as e:
+    #     print(e)
 
 def keyword_search(stock):
     data = yf.Ticker(stock)
