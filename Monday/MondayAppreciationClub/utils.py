@@ -24,21 +24,36 @@ def read_ticker_json():
     count = 0
     for x in data:
         print(count)
-        stock = Stock(ticker=x["Symbol"], company_name=x["Company Name"])
-        stock.save()
-        count += 1
-        if count == 500:
-            break
+        data = yf.Ticker(x['Symbol'])
+        try:
+            original = data.info
+            stock = Stock(ticker=x["Symbol"], company_name=x["Company Name"], price=original["regularMarketPrice"])
+            stock.save()
+        except:
+            pass
+
+def readtickerdata(stock):
+    data = yf.Ticker(stock)
+
+    try:
+        original = data.info
+        # White list picks the values we want to KEEP from the original data.info
+        white_list = {'symbol', 'longName', 'regularMarketPrice'}
+
+        return {k: v for k, v in original.items() if k in white_list}
+    except Exception:
+        return False
 
 def look_up(stock, total_time="5d", interval_time="1d"):
 
     data = yf.Ticker(stock)
 
     original = data.info
+    print(data.info)
     #White list picks the values we want to KEEP from the original data.info
     white_list = {"sector", "fullTimeEmployees", "longBusinessSummary", "city", "phone",
                   "state", "country", "website", "address1", "industry",
-                  "currency", "marketCap", "sharesOutstanding", "bookValue", "logo_url"}
+                  "currency", "marketCap", "sharesOutstanding", "bookValue", "logo_url", 'regularMarketPrice'}
 
     returnDict = {k:v for k,v in original.items() if k in white_list}
 
@@ -130,7 +145,7 @@ def keyword_search(stock):
         for x in news['articles']:
             with open('my_classifier.pickle', 'rb') as f:
                 classifier = pickle.load(f)
-                string_input = x["description`"]
+                string_input = x["description"]
                 title = []
                 title_nontrunc = string_input.split(" ")
                 for y in range(0, len(list(title_nontrunc))):
@@ -186,6 +201,6 @@ def lemmatize_sentence(tokens, stop_words):
     return cleaned
 
 
-# print(look_up("MSFT"))
+print(look_up("WEF.TO"))
 # read_ticker_json()
 # # keyword_search("MSFT")

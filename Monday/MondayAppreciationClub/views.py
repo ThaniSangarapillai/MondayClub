@@ -1,7 +1,7 @@
 from django.shortcuts import render
 import json
 from django.http import StreamingHttpResponse, JsonResponse
-from .utils import look_up, keyword_search
+from .utils import look_up, keyword_search, readtickerdata
 from django.views.decorators.csrf import csrf_exempt
 from .models import Stock
 # Create your views here.
@@ -22,4 +22,18 @@ def lookup_info(request):
 
 @csrf_exempt
 def ticker(request):
-    print(Stock.objects.all().filter().values())
+    records = Stock.objects.all()
+    json_res = []
+    count = 0
+    for record in records:
+        count += 1
+        print(record.ticker, count)
+        result = {"ticker":record.ticker, "name":record.company_name, "price":record.price}
+        if count == 100:
+            break
+        if not result:
+            continue
+
+        json_res.append(result)
+
+    return JsonResponse(json_res, safe=False)
