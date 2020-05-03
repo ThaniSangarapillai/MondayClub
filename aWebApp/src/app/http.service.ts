@@ -7,15 +7,26 @@ import { HttpClient, HttpHeaders } from '@angular/common/http'
 export class HttpService {
   serviceUrl: string = ''
 
+  check: object;
+  postId: object;
+
   constructor(private http: HttpClient) { }
 
-  x: number = 10;
-
   search(name: string) {
-    if (this.x > 200)
-      return "There is no such stock";
-    else
-      return
+    this.http.post<any>('http://34.69.143.117:8000/stockinfo/', { stock: name }).subscribe(data => {
+    this.postId = data.id;
+    console.log(data);    
+  })
+
+  console.log(name);
+  
+
+  return true;  
+    
+  }
+
+  getInfo() {
+
   }
 
 }
