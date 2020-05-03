@@ -117,12 +117,12 @@ def keyword_search(stock):
         for x in news['articles']:
             with open('my_classifier.pickle', 'rb') as f:
                 classifier = pickle.load(f)
-                string_input = x["title"]
+                string_input = x["description`"]
                 title = []
                 title_nontrunc = string_input.split(" ")
-                for x in range(0, len(list(title_nontrunc))):
-                    if title_nontrunc[x] != '':
-                        title.append(title_nontrunc[x].lower())
+                for y in range(0, len(list(title_nontrunc))):
+                    if title_nontrunc[y] != '':
+                        title.append(title_nontrunc[y].lower())
                 title = lemmatize_sentence(title, stop_words)
                 result = classifier.classify(dict([token, True] for token in title))
                 print(result)
