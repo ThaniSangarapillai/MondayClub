@@ -8,13 +8,15 @@ import { SingleStockComponent } from './single-stock/single-stock.component';
 import { StocksComponent } from './stocks/stocks.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { AboutComponent } from './about/about.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     SingleStockComponent,
-    StocksComponent
+    StocksComponent,
+    AboutComponent
   ],
   imports: [
     BrowserModule,
