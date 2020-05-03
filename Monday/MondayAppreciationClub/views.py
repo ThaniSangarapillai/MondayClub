@@ -18,7 +18,9 @@ def news_info(request):
 
 @csrf_exempt
 def lookup_info(request):
+    print(request.body)
     recv_data = json.loads(request.body)
+    print(recv_data)
     return JsonResponse(look_up(recv_data["stock"], recv_data["range"], recv_data["interval"]), safe=False)
     #return_list =
 
