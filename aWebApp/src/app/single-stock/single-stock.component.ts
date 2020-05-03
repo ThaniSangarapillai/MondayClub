@@ -3,6 +3,7 @@ import { HttpService } from '../http.service';
 import { Router } from '@angular/router';
 import { Subscription, timer } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
+import { AppComponent } from '../app.component';
 
 
 @Component({
@@ -34,16 +35,19 @@ export class SingleStockComponent implements OnInit {
 
   ILValue = 98.89;
 
-  subscription: Subscription;
   newsIndex = [];
   data: object;
 
   constructor(private _http: HttpService, private router: Router) { }
 
   ngOnInit(): void {
-    this.subscription = timer(0, 10000).pipe(
-      switchMap(() => this._http.getnews(this.stockname))
-    ).subscribe(result => {
+    console.log(AppComponent.stocksymbol)
+    this._http.getInfo(AppComponent.stocksymbol).subscribe(data => {
+      //this.stockname = data[0].ticker;
+      this.data = data;
+    })
+  
+    this._http.getnews(AppComponent.stocksymbol).subscribe(result => {
       console.log(result)
       // for (let x in result) {
       //   this.newsIndex.push({
@@ -58,10 +62,7 @@ export class SingleStockComponent implements OnInit {
       //   });
       // }
     });
-    this._http.getInfo().subscribe(data => {
-      this.stockname = data[0].ticker;
-      console.log(data.ticker);
-    })
+    
   }
 
   search(): void {
@@ -71,8 +72,5 @@ export class SingleStockComponent implements OnInit {
     })
   }
 
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
-  }
 
 }
