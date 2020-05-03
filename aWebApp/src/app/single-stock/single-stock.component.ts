@@ -37,7 +37,7 @@ export class SingleStockComponent implements OnInit {
 
   ngOnInit(): void {
     this._http.getInfo().subscribe(data => {
-      this.stockname = data[0].ticker;
+      this.stockname = data.ticker;
       console.log(data.ticker);
     })
   }
