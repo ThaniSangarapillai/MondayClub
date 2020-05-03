@@ -9,7 +9,7 @@ import ast
 from bs4 import BeautifulSoup
 
 
-def look_up(stock,total_time = "5d",interval_time = "1d"):
+def look_up(stock, total_time="5d", interval_time="1d"):
 
     data = yf.Ticker(stock)
 
@@ -22,8 +22,15 @@ def look_up(stock,total_time = "5d",interval_time = "1d"):
     returnDict = {k:v for k,v in original.items() if k in white_list}
 
     #Creates a dictionary that contains numerical information like open/close/volume for specific dates of the time
-    hist = data.history(period=total_time,interval = interval_time).to_dict()
-
+    hist = data.history(period=total_time,interval = interval_time)
+    #hist['Date'] = hist['Date'].astype('string')
+    temp_list = list()
+    for i, x in hist.iterrows():
+        temp_list.append(str(i))
+    hist['Datetime'] = temp_list
+    hist = hist.set_index('Datetime', drop=True)
+    hist = hist.to_dict()
+    print(hist)
     #Combines both dictionaries into one
     returnDict.update(hist)
 
@@ -108,7 +115,7 @@ def keyword_search(stock):
                                    "content":x["content"],
                                    "publishdate": x["publishedAt"]})
 
-        print(news_sentiment)
+        return news_sentiment
 
     except Exception as e:
         raise e
@@ -117,6 +124,6 @@ def keyword_search(stock):
 
 def test():
     nltk.download()
-
-look_up("MSFT")
-keyword_search("MSFT")
+#
+print(look_up("MSFT"))
+# keyword_search("MSFT")
