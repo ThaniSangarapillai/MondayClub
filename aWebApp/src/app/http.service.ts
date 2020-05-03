@@ -11,27 +11,24 @@ export class HttpService {
   postId: object;
   first: string = 'http://34.69.143.117:8000/stockinfo/?s=';
   second: string = '&r=5d&i=1d'
-
+  storeName: string = '';
   constructor(private http: HttpClient) { }
 
   search(stockname: string) {
-    this.http.get<any>(this.first + stockname + this.second, { 'headers': { 'content-type': 'application/json' } }).subscribe(data => {
-    this.postId = data.status;
-    console.log(data);    
-    })
-
     console.log(stockname);
     
-    return this.postId === undefined;
+    this.storeName = stockname;
+    return this.http.get<any>(this.first + stockname + this.second, { 'headers': { 'content-type': 'application/json' } });   
   }
 
   public getstocks() : any {
     //returnData: Object;
+
     return this.http.get('http://34.69.143.117:8000/getmassinfo/', { 'headers': { 'content-type': 'application/json' } });
   }
 
   getInfo() {
-
+    return this.http.get<any>(this.first + this.storeName + this.second, { 'headers': { 'content-type': 'application/json' } });
   }
 
 }

@@ -9,7 +9,9 @@ import { Router } from '@angular/router';
 })
 export class SingleStockComponent implements OnInit {
 
-  stockname: string = 'Mo vs Thani';
+  searchName: string = '';
+
+  stockname: string = '';
 
   price = 100.64;
 
@@ -29,14 +31,22 @@ export class SingleStockComponent implements OnInit {
 
   ILValue = 98.89;
 
+  data: object;
+
   constructor(private _http: HttpService, private router: Router) { }
 
   ngOnInit(): void {
+    this._http.getInfo().subscribe(data => {
+      this.stockname = data[0].ticker;
+      console.log(data.ticker);
+    })
   }
 
-  search() {
-    if (this._http.search(this.stockname))
-      this.router.navigate(["/singlestock"]);
+  search(): void {
+    this._http.search(this.searchName).subscribe(data => {
+      if (data.status !== undefined)
+        this.router.navigate(["/singlestock"]);        
+    })
   }
 
 }
