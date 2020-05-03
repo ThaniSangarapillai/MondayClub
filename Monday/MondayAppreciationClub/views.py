@@ -14,7 +14,7 @@ def news_info(request):
          recv_data = json.loads(request.body)
          return JsonResponse(keyword_search(recv_data["stock"]), safe=False)
          #return_list =
-    raise SuspiciousOperation("Invalid request; see documentation for correct paramaters")
+    raise SuspiciousOperation("Invalid request; see documentation for correct paramaters")`
 
 @csrf_exempt
 def lookup_info(request):
