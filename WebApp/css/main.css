@@ -23,6 +23,11 @@ ul {
     width: 26 0px;
 }
 
+#namelogo {
+    max-width: 50%;
+    height: auto;
+}
+
 header {
     display: flex;
     justify-content: space-between;
