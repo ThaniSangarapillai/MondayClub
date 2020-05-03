@@ -34,6 +34,10 @@ export class SingleStockComponent implements OnInit {
 
   ILValue = 98.89;
 
+  title : string = 'Rajat is Appa';
+  description : string = 'Rajat is not Appa';
+  sentiment : string = 'true';
+
   subscription: Subscription;
   newsIndex = [];
   data: object;
