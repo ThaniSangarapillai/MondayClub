@@ -32,6 +32,8 @@ def read_ticker_json():
         except:
             pass
 
+        count += 1
+
 def readtickerdata(stock):
     data = yf.Ticker(stock)
 
