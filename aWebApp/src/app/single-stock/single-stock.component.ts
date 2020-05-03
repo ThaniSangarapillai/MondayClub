@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpService } from '../http.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-single-stock',
@@ -7,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SingleStockComponent implements OnInit {
 
-  name: string = 'Mo vs Thani';
+  stockname: string = 'Mo vs Thani';
 
   price = 100.64;
 
@@ -27,9 +29,14 @@ export class SingleStockComponent implements OnInit {
 
   ILValue = 98.89;
 
-  constructor() { }
+  constructor(private _http: HttpService, private router: Router) { }
 
   ngOnInit(): void {
+  }
+
+  search() {
+    if (this._http.search(this.stockname))
+      this.router.navigate(["/singlestock"]);
   }
 
 }
