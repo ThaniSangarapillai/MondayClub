@@ -14,20 +14,19 @@ export class HttpService {
   constructor(private http: HttpClient) { }
 
   search(stockname: string) {
-    this.http.post<any>('http://34.69.143.117:8000/stockinfo/', [{ "stock": "MSFT", "range": "5d", "interval": "1d" }], {'headers':{ 'content-type': 'application/json'}}).subscribe(data => {
-    this.postId = data.id;
-    console.log(data);    
-  })
+    this.http.get<any>('http://34.69.143.117:8000/stockinfo/?s=MSFT&r=5d&i=1d', { 'headers': { 'content-type': 'application/json' } }).subscribe(data => {
+      console.log(data);
+    })
 
-  console.log(name);
-  
+    console.log(name);
 
-  return true;  
-    
+
+    return true;
+
   }
 
   getInfo() {
-    
+
   }
 
 }
