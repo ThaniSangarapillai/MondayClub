@@ -1,0 +1,8 @@
+
+venv/
+.idea/
+.idea/vcs.xml
+*.xml
+*.pyc
+*.xml
+Monday/db.sqlite3
