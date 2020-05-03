@@ -12,7 +12,9 @@ import { switchMap } from 'rxjs/operators';
 })
 export class SingleStockComponent implements OnInit {
 
-  stockname: string = 'Mo vs Thani';
+  searchName: string = '';
+
+  stockname: string = '';
 
   price = 100.64;
 
@@ -34,6 +36,7 @@ export class SingleStockComponent implements OnInit {
 
   subscription: Subscription;
   newsIndex = [];
+  data: object;
 
   constructor(private _http: HttpService, private router: Router) { }
 
@@ -55,11 +58,17 @@ export class SingleStockComponent implements OnInit {
       //   });
       // }
     });
+    this._http.getInfo().subscribe(data => {
+      this.stockname = data[0].ticker;
+      console.log(data.ticker);
+    })
   }
 
-  search() {
-    if (this._http.search(this.stockname))
-      this.router.navigate(["/singlestock"]);
+  search(): void {
+    this._http.search(this.searchName).subscribe(data => {
+      if (data.status !== undefined)
+        this.router.navigate(["/singlestock"]);        
+    })
   }
 
   ngOnDestroy() {
