@@ -24,13 +24,17 @@ def read_ticker_json():
     count = 0
     for x in data:
         print(count)
-        data = yf.Ticker(x['Symbol'])
-        try:
-            original = data.info
-            stock = Stock(ticker=x["Symbol"], company_name=x["Company Name"], price=original["regularMarketPrice"])
-            stock.save()
-        except:
-            pass
+        if count % 10 == 0:
+            data = yf.Ticker(x['Symbol'])
+            try:
+                original = data.info
+                stock = Stock(ticker=x["Symbol"], company_name=x["Company Name"], price=original["regularMarketPrice"])
+                stock.save()
+
+                if count >= 10000:
+                    break
+            except:
+                pass
 
         count += 1
 
