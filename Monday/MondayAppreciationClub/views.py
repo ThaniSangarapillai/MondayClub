@@ -10,16 +10,21 @@ from django.core.exceptions import SuspiciousOperation
 
 @csrf_exempt
 def news_info(request):
-    return JsonResponse(keyword_search(look_up(request.GET.get('s', ''))), safe=False)
+
+    print(request.GET.get('s', ''))
+    return JsonResponse(keyword_search(look_up(str(request.GET.get('s', ''))), safe=False)
          #return_list =
     #raise SuspiciousOperation("Invalid request; see documentation for correct paramaters")
 
 @csrf_exempt
 def lookup_info(request):
-    print(request)
+    #print(request)
     #recv_data = json.loads(request.body)
     #print(recv_data)
-    return JsonResponse(look_up(request.GET.get('s', ''), request.GET.get('r', ''), request.GET.get('i', '')), safe=False)
+    try:
+        return JsonResponse(look_up(request.GET.get('s', ''), request.GET.get('r', ''), request.GET.get('i', '')), safe=False)
+    except Exception as e:
+        print(e)
     #return_list =
 
 @csrf_exempt
@@ -29,7 +34,7 @@ def ticker(request):
     count = 0
     for record in records:
         count += 1
-        print(record.ticker, count)
+        #print(record.ticker, count)
         result = {"ticker":record.ticker, "name":record.company_name, "price":record.price}
         if count == 100:
             break

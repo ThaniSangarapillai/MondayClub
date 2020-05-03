@@ -233,3 +233,39 @@ hr.solid2 {
     width: 53%;
 
 }
+
+.grid {
+    margin-top: auto;
+    margin-left: 15%;
+    margin-right: auto;
+    display: grid;
+    grid-template-columns: 5fr 1fr 1fr;
+    grid-gap: 50px;
+    width: 100%
+}
+
+.grid div:nth-child(even) {
+    border-radius: 10px;
+    border: 5px solid white;
+    background-color: white;
+}
+
+.grid div:nth-child(odd) {
+    background-color: #00af66;
+    border-radius: 10px;
+    border: 5px solid white;
+    background-color: white;
+    
+}
+
+.txtStocks {
+    color: white;
+    padding-right: 81.5%;
+    margin-top: 5%;
+    
+}
+
+.black {
+    color: black;
+    
+}
