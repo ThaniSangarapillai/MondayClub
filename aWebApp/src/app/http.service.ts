@@ -24,7 +24,7 @@ export class HttpService {
     
     return this.postId === undefined;
   }
-
+  
   public getstocks() : any {
     //returnData: Object;
     return this.http.get('http://34.69.143.117:8000/getmassinfo/', { 'headers': { 'content-type': 'application/json' } });
@@ -32,6 +32,10 @@ export class HttpService {
 
   getInfo() {
 
+  }
+
+  public getnews(stockname) : any {
+    return this.http.get('http://34.69.143.117:8000/newsinfo/?s=' + stockname, { 'headers': { 'content-type': 'application/json' } });
   }
 
 }
