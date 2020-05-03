@@ -4,6 +4,8 @@ from django.http import StreamingHttpResponse, JsonResponse
 from .utils import look_up, keyword_search, readtickerdata
 from django.views.decorators.csrf import csrf_exempt
 from .models import Stock
+from django.core.exceptions import SuspiciousOperation
+
 # Create your views here.
 
 @csrf_exempt
@@ -12,6 +14,7 @@ def news_info(request):
          recv_data = json.loads(request.body)
          return JsonResponse(keyword_search(recv_data["stock"]), safe=False)
          #return_list =
+    raise SuspiciousOperation("Invalid request; see documentation for correct paramaters")
 
 @csrf_exempt
 def lookup_info(request):
