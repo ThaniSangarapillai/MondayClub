@@ -10,10 +10,11 @@ export class HttpService {
   check: object;
   postId: object;
 
+
   constructor(private http: HttpClient) { }
 
-  search(name: string) {
-    this.http.post<any>('http://34.69.143.117:8000/stockinfo/', { stock: name }).subscribe(data => {
+  search(stockname: string) {
+    this.http.post<any>('http://34.69.143.117:8000/stockinfo/', [{ "stock": "MSFT", "range": "5d", "interval": "1d" }], {'headers':{ 'content-type': 'application/json'}}).subscribe(data => {
     this.postId = data.id;
     console.log(data);    
   })
