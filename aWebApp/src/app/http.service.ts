@@ -25,6 +25,14 @@ export class HttpService {
     return this.postId === undefined;
   }
 
+  getstocks() {
+    returnData: Object;
+    return this.http.get<any>('http://34.69.143.117:8000/getmassinfo/', { 'headers': { 'content-type': 'application/json' } }).subscribe(data => {
+      console.log(data);
+      return data;
+    })
+  }
+
   getInfo() {
 
   }

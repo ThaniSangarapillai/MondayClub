@@ -10,11 +10,9 @@ from django.core.exceptions import SuspiciousOperation
 
 @csrf_exempt
 def news_info(request):
-    if request.method == 'POST':
-         recv_data = json.loads(request.body)
-         return JsonResponse(keyword_search(recv_data["stock"]), safe=False)
+    return JsonResponse(keyword_search(look_up(request.GET.get('s', ''))), safe=False)
          #return_list =
-    raise SuspiciousOperation("Invalid request; see documentation for correct paramaters")
+    #raise SuspiciousOperation("Invalid request; see documentation for correct paramaters")
 
 @csrf_exempt
 def lookup_info(request):

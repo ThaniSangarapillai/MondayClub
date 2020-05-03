@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpService } from '../http.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-stocks',
@@ -7,9 +9,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class StocksComponent implements OnInit {
 
-  constructor() { }
+  constructor(private _http: HttpService, private router: Router) { }
 
   ngOnInit(): void {
+    this.getstocks();
+  }
+
+  getstocks(): void {
+    console.log("hello");
+    this._http.getstocks();
   }
 
 }

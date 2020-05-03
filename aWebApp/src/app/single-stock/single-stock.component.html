@@ -2,21 +2,43 @@
     <!--class="information"-->
     <div class="search-box">
         <input type="text" class="search-txt" name="" placeholder="Enter Stock...">
-        <form action= "single-stocks.html" method="GET">
-            <a href="#" class="search-btn"> 
-              <input type="image" src="assets/Group 2.png">
-            </a>
-        </form>
+        <a class="search-btn">
+          <button type="submit" (click)="search()">
+    
+            <i class="fas fa-search-dollar"></i></button>
+        </a>
       </div>
 
-    <h1 class="name">{{ name }}</h1>
-    <h1 class="Price"></h1>
-    <hr class="soild2">
-
+    <h1 style="font-size:60px" class="name">{{ name }}</h1>
+    <h1 style="font-size:120px"class="Price">{{ price }}</h1>
+    
+    <div class="vl"></div>
     <section class="attributes">
         <ul>
-            <li class="attName">Text</li>
-            <li class="attVal">Value</li>
+            <li style="font-size:25px" class="attName">Last Price</li>
+            <li style="font-size:25px"class="attVal">{{LPValue}}</li>
+
+            <li style="font-size:25px"class="MarTime">Market Time</li>
+            <li style="font-size:25px"class="MValue">{{MTime}}</li>
+
+            <li style="font-size:25px" class="Change">Change</li>
+            <li style="font-size:25px"class="CValue">{{CValue}}</li>
+
+            <li style="font-size:25px"class="ChangeP">Change %</li>
+            <li style="font-size:25px"class="ChangePValue">{{ChangePValue}}</li>
+
+            <li style="font-size:25px"class="Volume">Volume</li>
+            <li style="font-size:25px"class="VValue">{{VValue}}</li>
+
+            <li style="font-size:25px"class="MarketCap">MarketCap</li>
+            <li style="font-size:25px"class="MCValue">{{MCValue}}</li>
+
+            <li style="font-size:25px"class="IntHigh">IntHigh</li>
+            <li style="font-size:25px"class="IHValue">{{IHValue}}</li>
+
+            <li style="font-size:25px"class="IntLow">IntValue</li>
+            <li style="font-size:25px"class="ILValue">{{ILValue}}</li>
+
         </ul>
 
         <canvas>
