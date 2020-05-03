@@ -89,5 +89,5 @@ nav ul li a {
     width: 240px;
 }
 hr.solid {
-    border-top: 5px solid white;
+    border: 5px solid white;
   }
