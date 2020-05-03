@@ -15,10 +15,9 @@ def news_info(request):
 
 @csrf_exempt
 def lookup_info(request):
-    if request.method == 'POST':
-         recv_data = json.loads(request.body)
-         return JsonResponse(look_up(recv_data["stock"], recv_data["range"], recv_data["interval"]), safe=False)
-         #return_list =
+    recv_data = json.loads(request.body)
+    return JsonResponse(look_up(recv_data["stock"], recv_data["range"], recv_data["interval"]), safe=False)
+    #return_list =
 
 @csrf_exempt
 def ticker(request):
