@@ -7,15 +7,26 @@ import { HttpClient, HttpHeaders } from '@angular/common/http'
 export class HttpService {
   serviceUrl: string = ''
 
+  check: object;
+  postId: object;
+
+
   constructor(private http: HttpClient) { }
 
-  x: number = 10;
+  search(stockname: string) {
+    this.http.get<any>('http://34.69.143.117:8000/stockinfo/?s=MSFT&r=5d&i=1d', { 'headers': { 'content-type': 'application/json' } }).subscribe(data => {
+      console.log(data);
+    })
 
-  search(name: string) {
-    if (this.x > 200)
-      return "There is no such stock";
-    else
-      return
+    console.log(name);
+
+
+    return true;
+
+  }
+
+  getInfo() {
+
   }
 
 }
