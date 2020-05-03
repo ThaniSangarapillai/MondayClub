@@ -92,13 +92,24 @@ def keyword_search(stock):
             search_query[x] = regex.sub(' ', search_query[x])
 
         print(search_query)
-
+        #need to add for loop here, remind
         url = ("https://newsapi.org/v2/everything?q={}&sortBy=popularity&pageSize=3&apiKey=d04c306a8941438eaeb5db7618483935".format(search_query[0]))
         response = requests.get(url)
         print(response.json())
         response.raise_for_status()
         news = response.json()
-        
+        for x in news['articles']:
+            news_sentiment.append({"source":x["source"]["name"],
+                                   "author":x["author"],
+                                   "title":x["title"],
+                                   "description":x["description"],
+                                   "url":x["url"],
+                                   "image":x["urlToImage"],
+                                   "content":x["content"],
+                                   "publishdate": x["publishedAt"]})
+
+        print(news_sentiment)
+
     except Exception as e:
         raise e
         #print("Error!")

@@ -37,8 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'MondayAppreciationClub.apps.MondayAppreciationClubConfig',
-    'rest_framework',
+    'MondayAppreciationClub.apps.MondayappreciationclubConfig',
+    #'rest_framework',
 ]
 
 MIDDLEWARE = [
