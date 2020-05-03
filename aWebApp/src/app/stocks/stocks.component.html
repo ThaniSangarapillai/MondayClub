@@ -1,16 +1,10 @@
 <section>
     <h1 style="font-size:50px" class="txtStocks">Stocks</h1>
     <div class="grid">
-        <div>
-            <!-- odd children are green, even children are good :) -->
-        </div>
-        <div class="text">
-            <h1>MSFT</h1>
-            <h2 class="black">174.57</h2>
-            <h5>Microsoft Corporation</h5>
-        </div>
-        <div>
-            <!-- odd children are green, even children are good :) -->
+        <div *ngFor="let x of stockIndex" class="text">
+            <h1>{{x.ticker}}</h1>
+            <h2 class="black">{{x.price}}</h2>
+            <h5>{{x.name}}</h5>
         </div>
     </div>
 </section>
