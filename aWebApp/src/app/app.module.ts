@@ -7,6 +7,7 @@ import { HomeComponent } from './home/home.component';
 import { SingleStockComponent } from './single-stock/single-stock.component';
 import { StocksComponent } from './stocks/stocks.component';
 import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { FormsModule } from '@angular/forms';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
