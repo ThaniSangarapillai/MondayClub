@@ -15,9 +15,20 @@ from nltk import FreqDist
 from nltk import classify
 from nltk import NaiveBayesClassifier
 import random
+import json
+from .models import Stock
 
 def read_ticker_json():
-    
+    with open("ticker.json") as f:
+        data = json.load(f)
+    count = 0
+    for x in data:
+        print(count)
+        stock = Stock(ticker=x["Symbol"], company_name=x["Company Name"])
+        stock.save()
+        count += 1
+        if count == 500:
+            break
 
 def look_up(stock, total_time="5d", interval_time="1d"):
 
@@ -175,5 +186,6 @@ def lemmatize_sentence(tokens, stop_words):
     return cleaned
 
 
-print(look_up("MSFT"))
-# keyword_search("MSFT")
+# print(look_up("MSFT"))
+# read_ticker_json()
+# # keyword_search("MSFT")

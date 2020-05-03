@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SingleStockComponent implements OnInit {
 
+  name: string = 'Mo vs Thani';
+
   constructor() { }
 
   ngOnInit(): void {
