@@ -67,6 +67,7 @@ nav ul li a {
 .search-btn{
     color: black;
     float: right;
+    border: none;
     width: 40px;
     height: 40px;
     background: white;
