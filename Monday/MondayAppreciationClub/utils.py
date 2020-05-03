@@ -7,6 +7,14 @@ import re, pprint
 import requests
 import ast
 from bs4 import BeautifulSoup
+import pickle
+import string
+from nltk.tag import pos_tag
+from nltk.stem.wordnet import WordNetLemmatizer
+from nltk import FreqDist
+from nltk import classify
+from nltk import NaiveBayesClassifier
+import random
 
 
 def look_up(stock, total_time="5d", interval_time="1d"):
@@ -48,6 +56,7 @@ def look_up(stock, total_time="5d", interval_time="1d"):
 
 def keyword_search(stock):
     data = yf.Ticker(stock)
+    stop_words = stopwords.words('english')
     # summary = data.info["longBusinessSummary"]
     # sr = stopwords.words('english')
     # text = [t.lower() for t in summary.split()]
@@ -106,6 +115,18 @@ def keyword_search(stock):
         response.raise_for_status()
         news = response.json()
         for x in news['articles']:
+            with open('my_classifier.pickle', 'rb') as f:
+                classifier = pickle.load(f)
+                string_input = x["title"]
+                title = []
+                title_nontrunc = string_input.split(" ")
+                for x in range(0, len(list(title_nontrunc))):
+                    if title_nontrunc[x] != '':
+                        title.append(title_nontrunc[x].lower())
+                title = lemmatize_sentence(title, stop_words)
+                result = classifier.classify(dict([token, True] for token in title))
+                print(result)
+
             news_sentiment.append({"source":x["source"]["name"],
                                    "author":x["author"],
                                    "title":x["title"],
@@ -113,7 +134,8 @@ def keyword_search(stock):
                                    "url":x["url"],
                                    "image":x["urlToImage"],
                                    "content":x["content"],
-                                   "publishdate": x["publishedAt"]})
+                                   "publishdate": x["publishedAt"],
+                                   "sentiment":result})
 
         return news_sentiment
 
@@ -125,5 +147,31 @@ def keyword_search(stock):
 def test():
     nltk.download()
 #
+
+def lemmatize_sentence(tokens, stop_words):
+    cleaned = []
+    lemmatizer = WordNetLemmatizer()
+    lemmatized_sentence = []
+    for token, tag in pos_tag(tokens):
+        token = token.strip(string.punctuation)
+        token = re.sub("^[0-9]-.+", '', token)
+        token = re.sub("^[0-9]+$", '', token)
+        #print(string.punctuation
+
+        pos = ''
+        if tag.startswith('NN'):
+            pos = 'n'
+        elif tag.startswith('VB'):
+            pos = 'v'
+        else:
+            pos = 'a'
+
+        token = lemmatizer.lemmatize(token, pos)
+
+        if len(token) > 0 and token not in string.punctuation and token.lower() not in stop_words:
+            cleaned.append(token.lower())
+    return cleaned
+
+
 print(look_up("MSFT"))
 # keyword_search("MSFT")
