@@ -61,7 +61,8 @@ nav ul li a {
     box-sizing: border-box;
     background: white;
     border-radius: 40px;
-    padding: 10px 10px 10px 10px;
+    padding: 10px 20px 9px 20px;
+    font-size: 15px;
 }
 
 .search-btn{
@@ -84,7 +85,7 @@ nav ul li a {
     float: left;
     padding: 0;
     color: #00af66;
-    font-size: 16px;
+    font-size: 20px;
     transition: 0.4s;
     line-height: 35px;
     width: 600px;
