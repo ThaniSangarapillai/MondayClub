@@ -16,6 +16,8 @@ from nltk import classify
 from nltk import NaiveBayesClassifier
 import random
 
+def read_ticker_json():
+    
 
 def look_up(stock, total_time="5d", interval_time="1d"):
 
