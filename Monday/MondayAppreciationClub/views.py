@@ -12,13 +12,13 @@ from django.core.exceptions import SuspiciousOperation
 def news_info(request):
 
     print(request.GET.get('s', ''))
-    return JsonResponse(keyword_search(look_up(request.GET.get('s', ''))), safe=False)
+    return JsonResponse(keyword_search(look_up(str(request.GET.get('s', ''))), safe=False)
          #return_list =
     #raise SuspiciousOperation("Invalid request; see documentation for correct paramaters")
 
 @csrf_exempt
 def lookup_info(request):
-    print(request)
+    #print(request)
     #recv_data = json.loads(request.body)
     #print(recv_data)
     try:
@@ -34,7 +34,7 @@ def ticker(request):
     count = 0
     for record in records:
         count += 1
-        print(record.ticker, count)
+        #print(record.ticker, count)
         result = {"ticker":record.ticker, "name":record.company_name, "price":record.price}
         if count == 100:
             break

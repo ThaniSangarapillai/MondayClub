@@ -11,17 +11,18 @@ import { AppComponent } from '../app.component';
 })
 export class HomeComponent implements OnInit {
 
-  stockname: string = '';
+  stockname: any = "MSFT";
 
   constructor(private _http: HttpService, private router: Router) { }
 
   ngOnInit(): void {
   }
 
-  search(): void {
-    AppComponent.stocksymbol = this.stockname
+  search(): any {
+    
     console.log(AppComponent.stocksymbol)
-    this._http.search(AppComponent.stocksymbol).subscribe(data => {
+    AppComponent.stocksymbol = this.stockname
+    this._http.search(AppComponent.stocksymbol.toString()).subscribe(data => {
       if (data.status === undefined) {
         this.router.navigate(['/singlestock'])
       }
