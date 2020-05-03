@@ -17,7 +17,6 @@ export class HomeComponent implements OnInit {
   }
 
   search(): void {
-    console.log("hello");
     if (this._http.search(this.stockname))
       this.router.navigate(["/singlestock"]);
   }
