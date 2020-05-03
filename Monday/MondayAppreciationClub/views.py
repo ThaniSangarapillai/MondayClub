@@ -21,7 +21,10 @@ def lookup_info(request):
     print(request)
     #recv_data = json.loads(request.body)
     #print(recv_data)
-    return JsonResponse(look_up(request.GET.get('s', ''), request.GET.get('r', ''), request.GET.get('i', '')), safe=False)
+    try:
+        return JsonResponse(look_up(request.GET.get('s', ''), request.GET.get('r', ''), request.GET.get('i', '')), safe=False)
+    except Exception as e:
+        print(e)
     #return_list =
 
 @csrf_exempt
